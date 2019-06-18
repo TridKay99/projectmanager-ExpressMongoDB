@@ -3,7 +3,7 @@ const Project = require('../models/project')
 const showAllProjects = (req, res)=> {
   Project.find({})
   .then( allProjects => {
-    return res.json(allProjects)
+    res.send(allProjects)
   })
   .catch (err => {
     console.log(err);
@@ -14,7 +14,7 @@ const showOneProject = (req, res) => {
   const { id } = req.params;
   Project.find({ id: id })
     .then(project => {
-      return res.json(project);
+      return res.send(project);
     })
     .catch(err => {
       return res.json(err);
