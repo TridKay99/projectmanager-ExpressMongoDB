@@ -3,7 +3,7 @@ app = express(),
 cors = require('cors'),
 mongoose = require('mongoose'),
 Project = require('./models/project'),
-projectRoutes = require('./routes/project.routes')
+projectRoutes = require('./routes/project.routes'),
 
 projectManager = require('./models/projectManager')
 
@@ -11,7 +11,7 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/', projectRoutes)
-app.use(express.static('public'))
+app.use("/",express.static('public'))
 
 
 

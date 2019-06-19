@@ -3,16 +3,21 @@ const mongoose = require('mongoose')
 const projectSchema = new mongoose.Schema ({
   id: {
     type: Number,
-    required: true,
-    unique: true
+    required: false,
+    unique: false,
   },
   name: {
     type: String,
     required: true,
-    unique: true
+    unique: false
   },
+  price: {
+    type: Number,
+    required: true,
+    unique: false,
+  }
 },
-  { collection: 'project'}
+  { collection: 'apple'}
 )
 
-module.exports = mongoose.model('project', projectSchema)
+module.exports = mongoose.model('myProject', projectSchema)

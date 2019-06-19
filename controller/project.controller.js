@@ -1,7 +1,7 @@
-const Project = require('../models/project')
+const myProject = require('../models/project')
 
 const showAllProjects = (req, res)=> {
-  Project.find({})
+  myProject.find({})
   .then( allProjects => {
     res.send(allProjects)
   })
@@ -12,7 +12,7 @@ const showAllProjects = (req, res)=> {
 
 const showOneProject = (req, res) => {
   const { id } = req.params;
-  Project.find({ id: id })
+  myProject.find({ id: id })
     .then(project => {
       return res.send(project);
     })
@@ -24,7 +24,7 @@ const showOneProject = (req, res) => {
 const updateProject = (req, res) => {
   const { id } = req.params
   const { newName } = req.body
-  Project.findOne({id})
+  myProject.findOne({id})
   .then( project => {
     project.name = newName
     project.save()
@@ -37,24 +37,22 @@ const updateProject = (req, res) => {
 }
 
 const deleteProject = (req, res) => {
+  console.log(req);
   const { id } = req.params
-  const { newName } = req.body
-  Project.findOne({id})
-  .then( project => {
-    project.name = newName
-    project.save()
-    .then( (doc) => {
-      res.send(`${doc.name} has been updated`)
-    })
-    .catch( error => console.log(error) )
+  myProject.findOneAndDelete({ id })
+  .then( doc => {
+    if(!doc) return res.send(`No Project found at name ${name}`)
+    res.send(`${doc.name} deleted from database`)
   })
-  .catch( err => res.json(err))
-}
+  .catch((err) => {
+    return res.json(err)
+  });
+};
 
 const createProject = (req,res) => {
-  const { id, name } = req.body
-  
-  Project.create({ id, name })
+  const { id, name, price } = req.body
+  console.log("hello");
+  myProject.create({ id, name, price })
   .then( newProject => {
     console.log(newProject);
     res.json(newProject);
